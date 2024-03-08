@@ -10,13 +10,10 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
-	"io"
 	"net/http"
 	"sync"
 	"sync/atomic"
 	"time"
-
-	"gopkg.in/cenkalti/backoff.v1"
 )
 
 var (
@@ -213,10 +210,6 @@ func (c *Client) readLoop(reader *EventStreamReader, outCh chan *Event, erChan c
 		// Read each new line and process the type of event
 		event, err := reader.ReadEvent()
 		if err != nil {
-			if err == io.EOF {
-				erChan <- nil
-				return
-			}
 			// run user specified disconnect function
 			if c.disconnectcb != nil {
 				c.Connected = false
