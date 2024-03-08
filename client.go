@@ -10,6 +10,7 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
+	"gopkg.in/cenkalti/backoff.v1"
 	"net/http"
 	"sync"
 	"sync/atomic"
